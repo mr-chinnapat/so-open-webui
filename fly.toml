@@ -1,8 +1,9 @@
 app = "so-open-webui"
-primary_region = "sin" # เปลี่ยนเป็นภูมิภาคที่ใกล้คุณที่สุด เช่น sin สำหรับสิงคโปร์
+primary_region = "sin"
 
 [build]
-  dockerfile = "Dockerfile"
+  [build.args]
+    NODE_VERSION = "20"
 
 [env]
   PORT = "8080"
