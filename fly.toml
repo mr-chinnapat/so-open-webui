@@ -1,0 +1,33 @@
+app = "so-open-webui"
+primary_region = "sin" # เปลี่ยนเป็นภูมิภาคที่ใกล้คุณที่สุด เช่น sin สำหรับสิงคโปร์
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+  HOST = "0.0.0.0"
+  DATABASE_URL = "postgresql://postgres:5ZoPWmFtFXDFroYh@94.74.115.204:5432/ocr_service"
+  DATABASE_SCHEMA = "public"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 8080
+  processes = ["app"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
